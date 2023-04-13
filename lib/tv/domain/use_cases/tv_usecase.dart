@@ -18,8 +18,8 @@ class TvUseCase{
     return await baseTvRepositories.getTvTopRated(page);
   }
 
-  Future<DetailsModelTv> getTvDetails(int id)async{
-    return await baseTvRepositories.getTvDetails(id);
+  Future<DetailsModelTv> getTvDetails(int id,String lang)async{
+    return await baseTvRepositories.getTvDetails(id,lang);
   }
 
   Future<List<TvModel>> getTvSearch(String query, int page)async{

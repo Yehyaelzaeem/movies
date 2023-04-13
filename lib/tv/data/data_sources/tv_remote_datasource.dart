@@ -10,7 +10,7 @@ abstract class BaseTvRemoteDataSource {
   Future<List<TvModel>> getOnTheAir();
   Future<List<TvModel>> getPopular(int page);
   Future<List<TvModel>> getTopRated(int page);
-  Future<DetailsModelTv> getTvDetails(int id);
+  Future<DetailsModelTv> getTvDetails(int id,String lang);
   Future<List<TvModel>> getTvSearch(String query, int page);
   Future<List<LikeThisMoviesModelTv>> getTvLikeThis(int id);
 }
@@ -50,8 +50,8 @@ class TvRemoteDataSource implements BaseTvRemoteDataSource{
   }
 
   @override
-  Future<DetailsModelTv> getTvDetails(int id) async{
-    var response = await Dio().get('${AppConstants.baseUrl}/tv/$id?api_key=${AppConstants.apiKey}');
+  Future<DetailsModelTv> getTvDetails(int id,String lang) async{
+    var response = await Dio().get('${AppConstants.baseUrl}/tv/$id?api_key=${AppConstants.apiKey}&language=$lang');
     if(response.statusCode==200){
       return DetailsModelTv.fromJson(response.data);
     }

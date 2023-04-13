@@ -19,16 +19,20 @@ class SeasonProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  void getData(int id,int r)async{
-   getSeasonsData(id,r);
+  void getData(int id,int r,String lang)async{
+   getSeasonsData(id,r,lang);
      isOk =true;
     notifyListeners();
   }
 
-  Future getSeasonsData(int id ,int seasonNumber)async{
+  Future getSeasonsData(int id ,int seasonNumber,String lang)async{
     listSeason.clear();
+    String l='en';
+    if(lang =='ar'){
+      l='ar';
+    }
     for(int i=1;i<=seasonNumber;i++){
-      final data =await seasonUseCase.getSeasonData(id, i);
+      final data =await seasonUseCase.getSeasonData(id, i,l);
        listSeason.add(data);
     }
     notifyListeners();

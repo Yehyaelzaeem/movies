@@ -56,7 +56,7 @@ class CustomHome extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      DetailsMovies(id: listPopular[i].id)));
+                                      DetailsMovies(id: listPopular[i].id, lang: listPopular[i].lan,)));
                         });
                   }
                 }),
@@ -84,7 +84,7 @@ class CustomHome extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      DetailsMovies(id: listTopRated[i].id)));
+                                      DetailsMovies(id: listTopRated[i].id, lang: listTopRated[i].lan,)));
                         });
                   }
                 }),

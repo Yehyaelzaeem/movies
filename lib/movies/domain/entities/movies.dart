@@ -9,6 +9,7 @@ class Movies extends Equatable {
   final String? description;
   final List<int>? genreIds;
   final String? date;
+  final String? lan;
 
  const Movies(
   {
@@ -20,6 +21,7 @@ class Movies extends Equatable {
     required this.genreIds,
     required this.date,
     required this.posterImage,
+    required this.lan,
 
   }
       );
@@ -34,6 +36,7 @@ class Movies extends Equatable {
     description,
     genreIds,
     date,
-    posterImage
+    posterImage,
+    lan
   ];
 }

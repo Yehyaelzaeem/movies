@@ -5,7 +5,7 @@ class SeasonUseCase{
   final BaseSeasonsRepo baseSeasonsRepo ;
 
   SeasonUseCase(this.baseSeasonsRepo);
-  Future<SeasonsModel> getSeasonData(int id,int seasonNumber)async{
-    return await baseSeasonsRepo.getEpisode(id, seasonNumber);
+  Future<SeasonsModel> getSeasonData(int id,int seasonNumber,String lang)async{
+    return await baseSeasonsRepo.getEpisode(id, seasonNumber,lang);
   }
 }

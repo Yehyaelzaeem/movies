@@ -7,7 +7,7 @@ class SeasonRepo extends BaseSeasonsRepo{
   SeasonRepo(this.baseSeasonsDataSource);
 
   @override
-  Future<SeasonsModel> getEpisode(int id, int seasonNumber)async {
-  return await baseSeasonsDataSource.getSeasonsData(id, seasonNumber);
+  Future<SeasonsModel> getEpisode(int id, int seasonNumber,String lang)async {
+  return await baseSeasonsDataSource.getSeasonsData(id, seasonNumber,lang);
   }
 }

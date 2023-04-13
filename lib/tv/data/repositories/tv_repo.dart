@@ -26,8 +26,8 @@ class TvRepositories extends BaseTvRepositories{
   }
 
   @override
-  Future<DetailsModelTv> getTvDetails(int id) async{
-    final res = await baseTvRemoteDataSource.getTvDetails(id);
+  Future<DetailsModelTv> getTvDetails(int id,String lang) async{
+    final res = await baseTvRemoteDataSource.getTvDetails(id,lang);
     return res;
   }
 

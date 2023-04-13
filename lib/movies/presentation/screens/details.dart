@@ -7,7 +7,8 @@ import 'package:intl/intl.dart';
 
 class DetailsMovies extends StatefulWidget {
   final int id;
-  const DetailsMovies({super.key, required this.id});
+  final String  lang;
+  const DetailsMovies({super.key, required this.id, required this.lang});
   @override
   State<DetailsMovies> createState() => _DetailsMoviesState();
 }
@@ -15,7 +16,7 @@ class DetailsMovies extends StatefulWidget {
 class _DetailsMoviesState extends State<DetailsMovies> {
   @override
   void initState() {
-    Provider.of<DetailsProvider>(context, listen: false).getDetails(widget.id);
+    Provider.of<DetailsProvider>(context, listen: false).getDetails(widget.id,widget.lang);
     Provider.of<DetailsProvider>(context, listen: false).getLikeThisMovies(widget.id);
     super.initState();
   }
@@ -141,7 +142,7 @@ class _DetailsMoviesState extends State<DetailsMovies> {
                      ),
                      const Text('Genres:  ',style: TextStyle(color: Colors.white70,fontSize: 15),),
                      SizedBox(
-                       width: MediaQuery.of(context).size.width*0.7,
+                       width: MediaQuery.of(context).size.width*0.6,
                        height: MediaQuery.of(context).size.height*0.03,
                        child: ListView.builder(
                            scrollDirection: Axis.horizontal,
@@ -195,7 +196,7 @@ class _DetailsMoviesState extends State<DetailsMovies> {
                            return CustomOneMovie(
                                image: '${AppConstants.imageUrl}${controller.listLikeThis[i].image}',
                                onTap: (){
-                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id: controller.listLikeThis[i].id)));
+                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id: controller.listLikeThis[i].id, lang: controller.listLikeThis[i].lan!,)));
                                });
                          }
                        }, ),

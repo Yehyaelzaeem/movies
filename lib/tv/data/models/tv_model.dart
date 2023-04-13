@@ -8,7 +8,7 @@ class TvModel extends Tv{
     required super.title,
     required super.description,
     required super.rate,
-    required super.date});
+    required super.date, required super.lang});
 
   factory TvModel.fromJson(Map<String, dynamic> json) {
     return TvModel(
@@ -19,6 +19,8 @@ class TvModel extends Tv{
         description: json['overview'],
         rate: json['vote_average'],
         date: json['first_air_date'],
+        lang: json['original_language'],
+
     );
   }
 }

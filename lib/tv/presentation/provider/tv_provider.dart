@@ -127,9 +127,13 @@ class TvProvider extends ChangeNotifier{
   }
 
 //getDetails***********************************************
-  Future getDetails(int id)async{
+  Future getDetails(int id,String lang)async{
+    String l='en';
+    if(lang =='ar'){
+      l='ar';
+    }
     getDetailsList.clear();
-    final data =await tvUseCase.getTvDetails(id);
+    final data =await tvUseCase.getTvDetails(id,l);
     getDetailsList.add(data);
     notifyListeners();
   }

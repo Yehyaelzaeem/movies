@@ -5,14 +5,14 @@ import '../../../core/networks/error_model.dart';
 import '../../../core/networks/exception.dart';
 
 abstract class BaseSeasonsDataSource {
-  Future<SeasonsModel> getSeasonsData(int id ,int seasonNumber);
+  Future<SeasonsModel> getSeasonsData(int id ,int seasonNumber,String lang);
 }
 
 class SeasonsDataSource implements BaseSeasonsDataSource{
 
   @override
-  Future<SeasonsModel> getSeasonsData(int id, int seasonNumber) async{
-    var res =await Dio().get('${AppConstants.baseUrl}/tv/$id/season/$seasonNumber?api_key=${AppConstants.apiKey}');
+  Future<SeasonsModel> getSeasonsData(int id, int seasonNumber,String lang) async{
+    var res =await Dio().get('${AppConstants.baseUrl}/tv/$id/season/$seasonNumber?api_key=${AppConstants.apiKey}&language=$lang');
     if(res.statusCode==200){
       return SeasonsModel.fromJson(res.data);
     }

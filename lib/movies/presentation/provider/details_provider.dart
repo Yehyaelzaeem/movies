@@ -15,11 +15,15 @@ class DetailsProvider extends ChangeNotifier{
 
 
 
-  void getDetails (int id)async{
+  void getDetails (int id,String lang)async{
     listDetails.clear();
+    String l='en';
+    if(lang =='ar'){
+      l='ar';
+    }
     BaseRemoteDateSource baseRemoteDateSource =RemoteDateSource();
     BaseDetailsRepository baseDetailsRepository =DetailsRepository(baseRemoteDateSource);
-    final res = await GetMoviesDetails(baseDetailsRepository).getDetailsMovies(id);
+    final res = await GetMoviesDetails(baseDetailsRepository).getDetailsMovies(id,l);
     listDetails.add(res);
     notifyListeners();
   }

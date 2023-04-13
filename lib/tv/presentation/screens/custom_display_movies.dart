@@ -85,7 +85,7 @@ class CustomDisplayTv extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 15.0,left: 5,right: 5),
                         child: InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:controllerProvider.listTvOnSearching[i].id)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:controllerProvider.listTvOnSearching[i].id, lang:controllerProvider.listTvOnSearching[i].lang!,)));
                           },
                           child:
                           Container(
@@ -93,23 +93,24 @@ class CustomDisplayTv extends StatelessWidget {
                                 color: Color(0xff303030),
                                 borderRadius: BorderRadius.all(Radius.circular(15))
                             ),
-                            height:( MediaQuery.of(context).size.height-15)/5,
+                            height:( MediaQuery.of(context).size.height-15)/4,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const SizedBox(width: 2,),
+                                const SizedBox(width: 1,),
                                 SizedBox(
-                                  height: ( MediaQuery.of(context).size.height-15)/5 -5,
-                                  child: CustomOneMovie(
+                                  height: ( MediaQuery.of(context).size.height-15)/4.1,
+                                  child:
+                                  CustomOneMovie(
                                       image:
                                       '${AppConstants.imageUrl}${controllerProvider.listTvOnSearching[i].posterImage}',
                                       onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:controllerProvider.listTvOnSearching[i].id)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:controllerProvider.listTvOnSearching[i].id, lang: controllerProvider.listTvOnSearching[i].lang!,)));
                                       }),
                                 ),
                                 Expanded(
-                                    flex: 3,
+                                    flex:    3,
                                     child: LayoutBuilder(
                                       builder: (ctx ,constraints ) {
                                         return Padding(
@@ -117,7 +118,7 @@ class CustomDisplayTv extends StatelessWidget {
                                           child: Column(
                                             children: [
                                               SizedBox(
-                                                height: constraints.maxHeight*0.15,
+                                                height: constraints.maxHeight*0.09,
                                               ),
                                               Container(
                                                 alignment: Alignment.centerLeft,
@@ -166,7 +167,6 @@ class CustomDisplayTv extends StatelessWidget {
                                                 height: constraints.maxHeight*0.07,
                                               ),
                                               Text(
-
                                                 controllerProvider.listTvOnSearching[i].description!,
                                                 style: const TextStyle(
                                                     color: Colors.white,
@@ -215,7 +215,7 @@ class CustomDisplayTv extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 15.0,left: 5,right: 5),
                         child: InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id: isPopular==true?controllerProvider.listTvPopular[i].id:controllerProvider.listTvTopRated[i].id)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id: isPopular==true?controllerProvider.listTvPopular[i].id:controllerProvider.listTvTopRated[i].id, lang: isPopular==true?controllerProvider.listTvPopular[i].lang!:controllerProvider.listTvTopRated[i].lang!,)));
                           },
                           child:
                           Container(
@@ -223,20 +223,20 @@ class CustomDisplayTv extends StatelessWidget {
                                 color: Color(0xff303030),
                                 borderRadius: BorderRadius.all(Radius.circular(15))
                             ),
-                            height:( MediaQuery.of(context).size.height-15)/5,
+                            height:( MediaQuery.of(context).size.height-15)/4,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const SizedBox(width: 2,),
                                 SizedBox(
-                                  height: ( MediaQuery.of(context).size.height-15)/5 -5,
+                                  height: ( MediaQuery.of(context).size.height-15)/4.1,
                                   child: CustomOneMovie(
                                       image:isPopular==true?
                                       '${AppConstants.imageUrl}${controllerProvider.listTvPopular[i].posterImage}':
                                       '${AppConstants.imageUrl}${controllerProvider.listTvTopRated[i].posterImage}',
                                       onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:isPopular==true?controllerProvider.listTvPopular[i].id:controllerProvider.listTvTopRated[i].id)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:isPopular==true?controllerProvider.listTvPopular[i].id:controllerProvider.listTvTopRated[i].id, lang:isPopular==true?controllerProvider.listTvPopular[i].lang!:controllerProvider.listTvTopRated[i].lang!,)));
                                       }),
                                 ),
                                 Expanded(
@@ -306,7 +306,7 @@ class CustomDisplayTv extends StatelessWidget {
                                                     fontSize: 16,
                                                     overflow: TextOverflow.ellipsis
                                                 ),
-                                                maxLines: 2,
+                                                maxLines:2,
                                               )
                                             ],
                                           ),

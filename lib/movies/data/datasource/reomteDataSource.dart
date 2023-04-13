@@ -11,7 +11,7 @@ abstract class BaseRemoteDateSource {
   Future<List<MoviesModel>> getMoviesPopular(int page);
   Future<List<MoviesModel>> getMoviesTopRated(int page);
   Future<List<MoviesModel>> getSearch(String query, int page);
-  Future<DetailsModel> getDetails(int id);
+  Future<DetailsModel> getDetails(int id,String lang);
   Future<List<LikeThisMoviesModel>> getLikeThisMovies(int id);
 }
 
@@ -54,8 +54,8 @@ class RemoteDateSource implements BaseRemoteDateSource{
 
 
   @override
-  Future<DetailsModel> getDetails(int id) async{
-    var response = await Dio().get('${AppConstants.baseUrl}/movie/$id?api_key=${AppConstants.apiKey}');
+  Future<DetailsModel> getDetails(int id,String lang) async{
+    var response = await Dio().get('${AppConstants.baseUrl}/movie/$id?api_key=${AppConstants.apiKey}&language=$lang');
     if(response.statusCode==200){
       return DetailsModel.fromJson(response.data);
     }

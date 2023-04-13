@@ -86,7 +86,7 @@ class CustomDisplayMovies extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 15.0,left: 5,right: 5),
                         child: InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id:controllerProvider.listOnSearching[i].id)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id:controllerProvider.listOnSearching[i].id, lang: controllerProvider.listOnSearching[i].lan!,)));
                           },
                           child:
                           Container(
@@ -94,19 +94,19 @@ class CustomDisplayMovies extends StatelessWidget {
                                 color: Color(0xff303030),
                                 borderRadius: BorderRadius.all(Radius.circular(15))
                             ),
-                            height:( MediaQuery.of(context).size.height-15)/5,
+                            height:( MediaQuery.of(context).size.height-15)/4,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const SizedBox(width: 2,),
                                 SizedBox(
-                                  height: ( MediaQuery.of(context).size.height-15)/5 -5,
+                                  height: ( MediaQuery.of(context).size.height-15)/4.1,
                                   child: CustomOneMovie(
                                       image:
                                       '${AppConstants.imageUrl}${controllerProvider.listOnSearching[i].posterImage}',
                                       onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id:controllerProvider.listOnSearching[i].id)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id:controllerProvider.listOnSearching[i].id , lang:controllerProvider.listOnSearching[i].lan!,)));
                                       }),
                                 ),
                                 Expanded(
@@ -118,7 +118,7 @@ class CustomDisplayMovies extends StatelessWidget {
                                           child: Column(
                                             children: [
                                               SizedBox(
-                                                height: constraints.maxHeight*0.15,
+                                                height: constraints.maxHeight*0.1,
                                               ),
                                               Container(
                                                 alignment: Alignment.centerLeft,
@@ -215,7 +215,7 @@ class CustomDisplayMovies extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 15.0,left: 5,right: 5),
                         child: InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id: isPopular==true?controllerProvider.listPopular[i].id:controllerProvider.listTopRated[i].id)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id: isPopular==true?controllerProvider.listPopular[i].id:controllerProvider.listTopRated[i].id, lang: isPopular==true?controllerProvider.listPopular[i].lan!:controllerProvider.listTopRated[i].lan!,)));
                           },
                           child:
                           Container(
@@ -223,20 +223,20 @@ class CustomDisplayMovies extends StatelessWidget {
                                 color: Color(0xff303030),
                                 borderRadius: BorderRadius.all(Radius.circular(15))
                             ),
-                            height:( MediaQuery.of(context).size.height-15)/5,
+                            height:( MediaQuery.of(context).size.height-15)/4,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const SizedBox(width: 2,),
                                 SizedBox(
-                                  height: ( MediaQuery.of(context).size.height-15)/5 -5,
+                                  height: ( MediaQuery.of(context).size.height-15)/4.1,
                                   child: CustomOneMovie(
                                       image:isPopular==true?
                                       '${AppConstants.imageUrl}${controllerProvider.listPopular[i].posterImage}':
                                       '${AppConstants.imageUrl}${controllerProvider.listTopRated[i].posterImage}',
                                       onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id:isPopular==true?controllerProvider.listPopular[i].id:controllerProvider.listTopRated[i].id)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id:isPopular==true?controllerProvider.listPopular[i].id:controllerProvider.listTopRated[i].id, lang: isPopular==true?controllerProvider.listPopular[i].lan!:controllerProvider.listTopRated[i].lan!,)));
                                       }),
                                 ),
                                 Expanded(
@@ -248,7 +248,7 @@ class CustomDisplayMovies extends StatelessWidget {
                                           child: Column(
                                             children: [
                                               SizedBox(
-                                                height: constraints.maxHeight*0.15,
+                                                height: constraints.maxHeight*0.1,
                                               ),
                                               Container(
                                                 alignment: Alignment.centerLeft,

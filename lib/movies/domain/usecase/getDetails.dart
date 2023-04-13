@@ -6,7 +6,7 @@ class GetMoviesDetails {
   GetMoviesDetails(this.baseDetailsRepository);
 
 
-  Future<Details> getDetailsMovies (int id)async{
-    return await baseDetailsRepository.getMoviesDetails(id);
+  Future<Details> getDetailsMovies (int id,String lang)async{
+    return await baseDetailsRepository.getMoviesDetails(id,lang);
   }
 }

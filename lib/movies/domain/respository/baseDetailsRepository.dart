@@ -2,5 +2,5 @@
 import '../entities/movies_details.dart';
 
 abstract class BaseDetailsRepository {
-   Future<Details> getMoviesDetails(int id);
+   Future<Details> getMoviesDetails(int id,String lang);
 }

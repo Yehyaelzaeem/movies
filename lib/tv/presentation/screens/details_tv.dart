@@ -10,7 +10,8 @@ import 'package:intl/intl.dart';
 
 class DetailsTv extends StatefulWidget {
   final int id;
-  const DetailsTv({super.key, required this.id});
+  final String lang;
+  const DetailsTv({super.key, required this.id, required this.lang});
 
   @override
   State<DetailsTv> createState() => _DetailsMoviesState();
@@ -23,8 +24,8 @@ class _DetailsMoviesState extends State<DetailsTv>
   @override
   void initState() {
     Provider.of<DetailsProviderTv>(context, listen: false).getLikeThisMovies(widget.id);
-    Provider.of<TvProvider>(context, listen: false).getDetails(widget.id);
-    Provider.of<SeasonProvider>(context, listen: false).getSeasonsData(widget.id,1);
+    Provider.of<TvProvider>(context, listen: false).getDetails(widget.id,widget.lang);
+    Provider.of<SeasonProvider>(context, listen: false).getSeasonsData(widget.id,1,widget.lang);
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -83,7 +84,6 @@ class _DetailsMoviesState extends State<DetailsTv>
                    height: MediaQuery.of(context).size.width * 0.03,
                  ),
                  Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: [
                      const SizedBox(width: 10,),
                      Container(
@@ -111,31 +111,22 @@ class _DetailsMoviesState extends State<DetailsTv>
                        const TextStyle(color: Colors.white, fontSize: 16),
                      ),
                      SizedBox(
-                       width: MediaQuery.of(context).size.width * 0.01,
-                     ),
-                     const Text(
-                       '-----',
-                       style: TextStyle(color: Colors.white24, fontSize: 8),
-                     ),
-                     SizedBox(
-                       width: MediaQuery.of(context).size.width * 0.01,
+                       width: MediaQuery.of(context).size.width * 0.04,
                      ),
                      Text(
                        season,
                        style: const TextStyle(
-                           color: Colors.white70, fontSize: 16),
+                           color: Colors.white70, fontSize: 12),
                      ),
                      SizedBox(
-                       width: MediaQuery.of(context).size.width * 0.001,
+                       width: MediaQuery.of(context).size.width * 0.01,
                      ),
                      Text(
                        '${controller.getDetailsList[0].numberEpisodes} Episodes',
                        style: const TextStyle(
-                           color: Colors.white70, fontSize: 16),
+                           color: Colors.white70, fontSize: 12),
                        overflow: TextOverflow.ellipsis,
-                     ),
-                     SizedBox(
-                       width: MediaQuery.of(context).size.width * 0.02,
+                       maxLines:2,
                      ),
                    ],
                  ),
@@ -163,8 +154,8 @@ class _DetailsMoviesState extends State<DetailsTv>
                        style: TextStyle(color: Colors.white70, fontSize: 15),
                      ),
                      SizedBox(
-                       width: MediaQuery.of(context).size.width * 0.7,
-                       height: MediaQuery.of(context).size.height * 0.03,
+                       width: MediaQuery.of(context).size.width * 0.5,
+                       height: MediaQuery.of(context).size.height * 0.04,
                        child: ListView.builder(
                            scrollDirection: Axis.horizontal,
                            itemCount:
@@ -192,7 +183,7 @@ class _DetailsMoviesState extends State<DetailsTv>
                          if(d ==1){
                            sl<SeasonProvider>().chan();
                            int r=sl<TvProvider>().getDetailsList[0].seasonNumber!;
-                           sl<SeasonProvider>().getData(widget.id,r);
+                           sl<SeasonProvider>().getData(widget.id,r,widget.lang);
                          }
                          else if(d==0){
                            sl<SeasonProvider>().chan2();
@@ -221,8 +212,8 @@ class _DetailsMoviesState extends State<DetailsTv>
                    return c.listSeason.isEmpty? const Center(child: CircularProgressIndicator(),):
                    SizedBox(
                      height:
-                     c.isChick==false?((MediaQuery.of(context).size.height*0.275)*(c.listSeason[0].episode!.length)*seasonNumber):
-                     (l.isOdd ? ((MediaQuery.of(context).size.height * 0.088) * ((l))) : ((MediaQuery.of(context).size.height * 0.098) * ((l)))),
+                     c.isChick==false?((MediaQuery.of(context).size.height*0.3)*(c.listSeason[0].episode!.length)*seasonNumber):
+                     (l.isOdd ? ((MediaQuery.of(context).size.height * 0.1) * ((l))) : ((MediaQuery.of(context).size.height * 0.1) * ((l)))),
                      child:
                      TabBarView(controller: _tabController, children: <Widget>
                      [
@@ -260,7 +251,7 @@ class _DetailsMoviesState extends State<DetailsTv>
                                                context,
                                                MaterialPageRoute(
                                                    builder: (context) => DetailsTv(
-                                                       id: c.listLikeThis[i].id)));
+                                                       id: c.listLikeThis[i].id, lang: c.listLikeThis[i].lang!,)));
                                          });
                                    }
                                  },
@@ -282,7 +273,7 @@ class _DetailsMoviesState extends State<DetailsTv>
                                    Padding(
                                      padding: const EdgeInsets.only(top: 20.0),
                                      child: SizedBox(
-                                       height: (MediaQuery.of(context).size.height*0.275)*(c.listSeason[0].episode!.length),
+                                       height: (MediaQuery.of(context).size.height*0.3)*(c.listSeason[0].episode!.length),
                                        child:
                                        Column(
                                          children: [
@@ -309,76 +300,73 @@ class _DetailsMoviesState extends State<DetailsTv>
                                                  itemBuilder: (BuildContext context, int i) {
                                                    var d=  c.listSeason[index].episode![i];
                                                    return Padding(
-                                                     padding: const EdgeInsets.all(8.0),
-                                                     child: Padding(
-                                                       padding: const EdgeInsets.only(
-                                                           left: 3.0, right: 3),
-                                                       child: Container(
-                                                         height: 200,
-                                                         color:  const Color(0xff1E1E29),
-                                                         child: Column(
-                                                           crossAxisAlignment: CrossAxisAlignment.center,
-                                                           children: [
-                                                             Row(
-                                                               children: [
-                                                                 Expanded(
-                                                                   flex:4,
-                                                                   child: SizedBox(
-                                                                     height:100,
-                                                                     width:150,
+                                                     padding: const EdgeInsets.all(8),
+                                                     child: Container(
+                                                       height: 260,
+                                                       color:  const Color(0xff1E1E29),
+                                                       child: Column(
+                                                         crossAxisAlignment: CrossAxisAlignment.center,
+                                                         children: [
+                                                           Row(
+                                                             children: [
+                                                               Expanded(
+                                                                 flex:4,
+                                                                 child: SizedBox(
+                                                                   height:100,
+                                                                   width:150,
+                                                                   child:
+                                                                   ClipRRect(
+                                                                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                                                                      child:
-                                                                     ClipRRect(
-                                                                       borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                                                       child:
-                                                                       Image.network('${AppConstants.imageUrl}${d.imageEpisode}',
-                                                                           fit:BoxFit.cover,
-                                                                           errorBuilder: ( context,exception,stackTrace){
-                                                                             return const Center(child: CircularProgressIndicator());
-                                                                           }
+                                                                     Image.network('${AppConstants.imageUrl}${d.imageEpisode}',
+                                                                         fit:BoxFit.cover,
+                                                                         errorBuilder: ( context,exception,stackTrace){
+                                                                           return const Center(child: CircularProgressIndicator());
+                                                                         }
+                                                                     ),
+                                                                   )
+                                                                   ,),
+                                                               ),
+                                                               const SizedBox(width: 20,),
+                                                               Expanded(
+                                                                 flex: 5,
+                                                                 child: Column(
+                                                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                                                   mainAxisAlignment: MainAxisAlignment.start,
+                                                                   children: [
+                                                                     FittedBox(
+                                                                       child: Row(
+                                                                         children: [
+                                                                           Text('${d.numberEpisode}.',
+                                                                             style: const TextStyle(color: Colors.white,fontSize: 18),
+                                                                           ),
+                                                                           Text(' ${d.name}',
+                                                                             style: const TextStyle(color: Colors.white,fontSize: 18,
+                                                                                 overflow: TextOverflow.ellipsis
+                                                                             ),
+                                                                             maxLines: 2,
+                                                                           ),
+                                                                         ],
                                                                        ),
-                                                                     )
-                                                                     ,),
+                                                                     ),
+                                                                     const SizedBox(height: 3,),
+                                                                     Text('${d.dateOfEpisode}',
+                                                                       style: const TextStyle(color: Colors.white30,fontSize: 12),
+                                                                     ),
+                                                                   ],
                                                                  ),
-                                                                 const SizedBox(width: 20,),
-                                                                 Expanded(
-                                                                   flex: 5,
-                                                                   child: Column(
-                                                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                                                     mainAxisAlignment: MainAxisAlignment.start,
-                                                                     children: [
-                                                                       FittedBox(
-                                                                         child: Row(
-                                                                           children: [
-                                                                             Text('${d.numberEpisode}.',
-                                                                               style: const TextStyle(color: Colors.white,fontSize: 18),
-                                                                             ),
-                                                                             Text(' ${d.name}',
-                                                                               style: const TextStyle(color: Colors.white,fontSize: 18,
-                                                                                   overflow: TextOverflow.ellipsis
-                                                                               ),
-                                                                               maxLines: 2,
-                                                                             ),
-                                                                           ],
-                                                                         ),
-                                                                       ),
-                                                                       const SizedBox(height: 3,),
-                                                                       Text('${d.dateOfEpisode}',
-                                                                         style: const TextStyle(color: Colors.white30,fontSize: 12),
-                                                                       ),
-                                                                     ],
-                                                                   ),
-                                                                 )
-                                                               ],
-                                                             ),
-                                                             const SizedBox(height: 10,),
-                                                             Text('${d.descriptionEpisode}',
-                                                               style: const TextStyle(color: Colors.white60),
-                                                               overflow: TextOverflow.ellipsis,
-                                                               maxLines: 4,
-                                                             ),
-                                                           ],)
-                                                         ,),
-                                                     ),
+                                                               )
+                                                             ],
+                                                           ),
+                                                           const SizedBox(height: 5,),
+                                                           Text('${d.descriptionEpisode}',
+                                                             textAlign: widget.lang=='ar'?TextAlign.end:TextAlign.start,
+                                                             style: const TextStyle(color: Colors.white60),
+                                                             overflow: TextOverflow.ellipsis,
+                                                             maxLines: 4,
+                                                           ),
+                                                         ],)
+                                                       ,),
                                                    );
                                                  },
                                                  itemCount: c.listSeason[index].episode!.length,

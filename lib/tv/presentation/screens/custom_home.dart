@@ -56,7 +56,7 @@ class CustomHomeTv extends StatelessWidget {
                         image:'${AppConstants.imageUrl}${listPopular[i].posterImage}',
                         onTap: (){
                           print('${listPopular[i].id}');
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:listPopular[i].id)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:listPopular[i].id, lang: listPopular[i].lang,)));
                         });
                   }
 
@@ -80,7 +80,7 @@ class CustomHomeTv extends StatelessWidget {
                           image:'${AppConstants.imageUrl}${listTopRated[i].posterImage}',
                           onTap: (){
                             print('${listTopRated[i].id}');
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:listTopRated[i].id)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:listTopRated[i].id, lang: listTopRated[i].lang,)));
                           });
                   }
                 }),

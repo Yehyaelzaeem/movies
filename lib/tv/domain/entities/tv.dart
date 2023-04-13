@@ -6,6 +6,7 @@ class Tv {
   final String? description;
   final dynamic rate;
   final String? date;
+  final String? lang;
 
   Tv(
   {
@@ -15,5 +16,7 @@ class Tv {
    required this.title,
    required  this.description,
    required this.rate,
-   required this.date,});
+   required this.date,
+    required this.lang,
+  });
 }

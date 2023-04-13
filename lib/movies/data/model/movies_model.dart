@@ -11,6 +11,7 @@ class MoviesModel extends Movies{
         required super.genreIds,
         required super.date,
         required super.posterImage,
+        required super.lan,
       });
 
   factory MoviesModel.fromJson(Map<String, dynamic> json) {
@@ -22,7 +23,8 @@ class MoviesModel extends Movies{
         description: json['overview'],
         genreIds: List<int>.from(json['genre_ids'].map((e) => e)),
         date: json['release_date'],
-        posterImage:json['poster_path']
+        posterImage:json['poster_path'],
+        lan: json['original_language']
     );
   }
 

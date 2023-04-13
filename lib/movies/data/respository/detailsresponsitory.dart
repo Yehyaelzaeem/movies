@@ -8,8 +8,8 @@ class DetailsRepository extends BaseDetailsRepository{
   DetailsRepository(this.baseRemoteDateSource);
 
   @override
-  Future<Details> getMoviesDetails(int id) async{
-   return await baseRemoteDateSource.getDetails(id);
+  Future<Details> getMoviesDetails(int id,String lang) async{
+   return await baseRemoteDateSource.getDetails(id,lang);
   }
 
 }
