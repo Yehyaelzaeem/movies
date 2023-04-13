@@ -19,7 +19,6 @@ class TvModel extends Tv{
         description: json['overview'],
         rate: json['vote_average'],
         date: json['first_air_date'],
-
     );
   }
 }

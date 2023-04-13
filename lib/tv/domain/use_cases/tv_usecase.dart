@@ -21,4 +21,9 @@ class TvUseCase{
   Future<DetailsModelTv> getTvDetails(int id)async{
     return await baseTvRepositories.getTvDetails(id);
   }
+
+  Future<List<TvModel>> getTvSearch(String query, int page)async{
+    return await baseTvRepositories.getTvSearch(query,page);
+  }
+
 }

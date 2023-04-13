@@ -11,6 +11,7 @@ abstract class BaseTvRemoteDataSource {
   Future<List<TvModel>> getPopular(int page);
   Future<List<TvModel>> getTopRated(int page);
   Future<DetailsModelTv> getTvDetails(int id);
+  Future<List<TvModel>> getTvSearch(String query, int page);
   Future<List<LikeThisMoviesModelTv>> getTvLikeThis(int id);
 }
 
@@ -67,6 +68,17 @@ class TvRemoteDataSource implements BaseTvRemoteDataSource{
     }
     else {
       throw ServerException(errorMessage: ErrorMessageModel.fromJson(response.data));
+    }
+  }
+
+  @override
+  Future<List<TvModel>> getTvSearch(String query, int page) async{
+    var res =await Dio().get('${AppConstants.baseUrl}/search/tv?api_key=${AppConstants.apiKey}&page=$page&query=$query');
+    if(res.statusCode==200){
+      return List<TvModel>.from((res.data['results'] as List).map((e) => TvModel.fromJson(e)));
+    }
+    else{
+      throw ServerException(errorMessage: ErrorMessageModel.fromJson(res.data));
     }
   }
 

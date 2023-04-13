@@ -2,16 +2,16 @@ import 'package:equatable/equatable.dart';
 import 'genres.dart';
 
 class TvDetails extends Equatable{
-  final String image;
-  final String posterImage;
+  final String? image;
+  final String? posterImage;
   final int id;
-  final int numberEpisodes;
-  final List<GenresTv> genres;
-  final String title;
-  final String date;
+  final int? numberEpisodes;
+  final List<GenresTv>? genres;
+  final String? title;
+  final String? date;
   final dynamic rate;
-  final int seasonNumber;
-  final String description;
+  final int? seasonNumber;
+  final String? description;
 
  const TvDetails(
   {

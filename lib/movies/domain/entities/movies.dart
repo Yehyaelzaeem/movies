@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class Movies extends Equatable {
-  final dynamic image;
-  final String posterImage;
-  final String title;
+  final String? image;
+  final String? posterImage;
+  final String? title;
   final int id;
   final dynamic rate;
-  final String description;
-  final List<int> genreIds;
-  final String date;
+  final String? description;
+  final List<int>? genreIds;
+  final String? date;
 
  const Movies(
   {

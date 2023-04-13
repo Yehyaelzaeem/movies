@@ -30,4 +30,10 @@ class TvRepositories extends BaseTvRepositories{
     final res = await baseTvRemoteDataSource.getTvDetails(id);
     return res;
   }
+
+  @override
+  Future<List<TvModel>> getTvSearch(String query, int page)async {
+    final res= await baseTvRemoteDataSource.getTvSearch(query, page);
+    return res;
+  }
 }

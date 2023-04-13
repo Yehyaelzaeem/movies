@@ -23,4 +23,10 @@ class MoviesRepository extends BaseMoviesRepository{
     final res= await baseRemoteDateSource.getMoviesTopRated(page);
     return res;
   }
+
+  @override
+  Future<List<MoviesModel>> getSearch(String query,int page)async {
+    final res= await baseRemoteDateSource.getSearch(query, page);
+    return res;
+  }
 }

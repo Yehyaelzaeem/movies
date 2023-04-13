@@ -30,8 +30,8 @@ class NowPlaying extends StatelessWidget {
               return
                 CustomHome(
                   title: 'Now Playing',
-                  movieTitle: controller.listPlayNow[0].title,
-                  image: controller.listPlayNow[0].image,
+                  movieTitle: controller.listPlayNow[0].title!,
+                  image: controller.listPlayNow[0].image!,
                   listPopular: controller.listPopularData,
                   listTopRated: controller.listTopRatedData,
                 onTapPopular: () {

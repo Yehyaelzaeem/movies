@@ -1,11 +1,11 @@
 class Tv {
-  final dynamic image;
-  final dynamic posterImage;
+  final String? image;
+  final String? posterImage;
   final int id;
-  final String title;
-  final String description;
+  final String? title;
+  final String? description;
   final dynamic rate;
-  final String date;
+  final String? date;
 
   Tv(
   {

@@ -11,12 +11,13 @@ class TvProvider extends ChangeNotifier{
   List<Tv> listTvTopRated=[] ;
   List<Tv> listTvPopularDate=[] ;
   List<Tv> listTvTopRatedDate=[] ;
-  List<Tv> listSearchingData=[] ;
+  // List<Tv> listSearchingData=[] ;
+  List<Tv> listTvOnSearching=[] ;
   List<DetailsModelTv> getDetailsList=[] ;
   TextEditingController textEditingController =TextEditingController();
   ScrollController scrollController = ScrollController();
   final RefreshController refreshController = RefreshController();
-  bool isSearching =false;
+  bool isSearchingTv =false;
   int page=1;
   bool isPopularTv=true;
 
@@ -27,31 +28,20 @@ class TvProvider extends ChangeNotifier{
 
 //Searching************************************************
   void chickSearching(){
-    isSearching=!isSearching;
+    isSearchingTv=!isSearchingTv;
     isPopularTv==true?
-    listSearchingData=listTvPopular:
-    listSearchingData=listTvTopRated;
+    listTvOnSearching=listTvPopular:
+    listTvOnSearching=listTvTopRated;
     notifyListeners();
   }
 
-  Future searching(String movieName)async{
-    if(movieName.isNotEmpty){
-      if(isPopularTv==true){
-        listSearchingData=(listTvPopular.where((element) => element.title.toLowerCase().contains(movieName.toLowerCase()))).toList();
-      }
-      else{
-        listSearchingData=(listTvTopRated.where((element) => element.title.toLowerCase().contains(movieName.toLowerCase()))).toList();
-      }
-    }
-    else{
-      isPopularTv==true?
-      listSearchingData=listTvPopular:
-      listSearchingData=listTvTopRated;
-    }
+  Future onSearchingTv(String query, int page)async{
+    final data =await tvUseCase.getTvSearch(query,page);
+    listTvOnSearching=data;
     notifyListeners();
   }
 
-//Start running Function  **********************************
+//Start running Function**************************************
   Future getOnTheAir()async{
     final data =await tvUseCase.getOnTheAir();
     listOnTheAir=data;
@@ -143,5 +133,22 @@ class TvProvider extends ChangeNotifier{
     getDetailsList.add(data);
     notifyListeners();
   }
+//Searching in list ////////////////////////////////////////////////
+// Future searching(String movieName)async{
+//   if(movieName.isNotEmpty){
+//     if(isPopularTv==true){
+//       listSearchingData=(listTvPopular.where((element) => element.title.toLowerCase().contains(movieName.toLowerCase()))).toList();
+//     }
+//     else{
+//       listSearchingData=(listTvTopRated.where((element) => element.title.toLowerCase().contains(movieName.toLowerCase()))).toList();
+//     }
+//   }
+//   else{
+//     isPopularTv==true?
+//     listSearchingData=listTvPopular:
+//     listSearchingData=listTvTopRated;
+//   }
+//   notifyListeners();
+// }
 
 }

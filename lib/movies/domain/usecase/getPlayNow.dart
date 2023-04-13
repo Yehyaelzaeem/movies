@@ -16,4 +16,8 @@ class GetPlayNowUseCase{
   Future<List<MoviesModel>> getTopRated (int page)async{
     return await baseMoviesResponsitory.getTopRated(page);
   }
+
+  Future<List<MoviesModel>> getSearch (String query,int page)async{
+    return await baseMoviesResponsitory.getSearch(query,page);
+  }
 }

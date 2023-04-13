@@ -34,7 +34,7 @@ class _DetailsMoviesState extends State<DetailsMovies> {
          else{
            double r =controller.listDetails[0].rate;
            String newRate=r.toStringAsFixed(1);
-           int runtime =controller.listDetails[0].runtime;
+           int runtime =controller.listDetails[0].runtime!;
            String hour ='${runtime.toString()[0]}h';
            String min = '${runtime.toString().replaceAll(runtime.toString()[0], '')}m';
            String min2 = runtime.toString().replaceAll(runtime.toString()[0], '');
@@ -44,7 +44,7 @@ class _DetailsMoviesState extends State<DetailsMovies> {
            var year='';
            try{
              DateTime dateTime =
-            DateTime.parse(controller.listDetails[0].date);
+            DateTime.parse(controller.listDetails[0].date!);
              year= DateFormat.y().format((dateTime));
            }catch(e){
              year='';
@@ -56,12 +56,17 @@ class _DetailsMoviesState extends State<DetailsMovies> {
                  SizedBox(
                    height: MediaQuery.of(context).size.height*0.38,
                    width: MediaQuery.of(context).size.width,
-                   child:Image.network("${AppConstants.imageUrl}${controller.listDetails[0].image}",fit: BoxFit.cover,)
+                   child:Image.network(
+                     "${AppConstants.imageUrl}${controller.listDetails[0].image}",fit: BoxFit.cover,
+                     errorBuilder: (context,object,stack){
+                       return const Center(child: CircularProgressIndicator(),);
+                     },
+                   )
                  ),
                  Container(
                    margin:const EdgeInsets.only(left: 10,top: 10),
                    alignment: Alignment.centerLeft,
-                   child: Text(controller.listDetails[0].title,
+                   child: Text(controller.listDetails[0].title!,
                    style: const TextStyle(color: Colors.white,fontSize: 28,fontWeight: FontWeight.bold),
                    ),
                  ),
@@ -118,7 +123,7 @@ class _DetailsMoviesState extends State<DetailsMovies> {
                  ),
                  Container(
                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                   child: Text(controller.listDetails[0].description,
+                   child: Text(controller.listDetails[0].description!,
                    style: const TextStyle(
                      color: Colors.white,
                      fontSize: 16
@@ -140,10 +145,10 @@ class _DetailsMoviesState extends State<DetailsMovies> {
                        height: MediaQuery.of(context).size.height*0.03,
                        child: ListView.builder(
                            scrollDirection: Axis.horizontal,
-                           itemCount: controller.listDetails[0].genres.length ,
+                           itemCount: controller.listDetails[0].genres!.length ,
                            itemBuilder: (context,i){
                              return
-                               Text("${controller.listDetails[0].genres[i].name}${i== controller.listDetails[0].genres.length-1?'':","} ",
+                               Text("${controller.listDetails[0].genres![i].name}${i== controller.listDetails[0].genres!.length-1?'':","} ",
                                    style: const TextStyle(color: Colors.white70,fontSize: 15)
                                );}
                            ),

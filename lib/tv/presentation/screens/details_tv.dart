@@ -48,8 +48,8 @@ class _DetailsMoviesState extends State<DetailsTv>
          } else {
            double r = controller.getDetailsList[0].rate;
            String newRate = r.toStringAsFixed(1);
-           String date = controller.getDetailsList[0].date;
-           int seasonNumber = controller.getDetailsList[0].seasonNumber;
+           String date = controller.getDetailsList[0].date!;
+           int seasonNumber = controller.getDetailsList[0].seasonNumber!;
            String season = '${seasonNumber.toString()[0]} Season';
            var year = '';
            try {
@@ -72,7 +72,7 @@ class _DetailsMoviesState extends State<DetailsTv>
                    margin: const EdgeInsets.only(left: 10, top: 10),
                    alignment: Alignment.centerLeft,
                    child: Text(
-                     controller.getDetailsList[0].title,
+                     controller.getDetailsList[0].title!,
                      style: const TextStyle(
                          color: Colors.white,
                          fontSize: 28,
@@ -145,7 +145,7 @@ class _DetailsMoviesState extends State<DetailsTv>
                  Container(
                    margin: const EdgeInsets.symmetric(horizontal: 10),
                    child: Text(
-                     controller.getDetailsList[0].description,
+                     controller.getDetailsList[0].description!,
                      style: const TextStyle(color: Colors.white, fontSize: 16),
                    ),
                  ),
@@ -168,10 +168,10 @@ class _DetailsMoviesState extends State<DetailsTv>
                        child: ListView.builder(
                            scrollDirection: Axis.horizontal,
                            itemCount:
-                           controller.getDetailsList[0].genres.length,
+                           controller.getDetailsList[0].genres!.length,
                            itemBuilder: (context, i) {
                              return Text(
-                                 "${controller.getDetailsList[0].genres[i].name}${i == controller.getDetailsList[0].genres.length - 1 ? '' : ","} ",
+                                 "${controller.getDetailsList[0].genres![i].name}${i == controller.getDetailsList[0].genres!.length - 1 ? '' : ","} ",
                                  style: const TextStyle(
                                      color: Colors.white70, fontSize: 15));
                            }),
@@ -191,7 +191,7 @@ class _DetailsMoviesState extends State<DetailsTv>
                        onTap: (d){
                          if(d ==1){
                            sl<SeasonProvider>().chan();
-                           int r=sl<TvProvider>().getDetailsList[0].seasonNumber;
+                           int r=sl<TvProvider>().getDetailsList[0].seasonNumber!;
                            sl<SeasonProvider>().getData(widget.id,r);
                          }
                          else if(d==0){

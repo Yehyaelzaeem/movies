@@ -2,15 +2,15 @@ import 'package:equatable/equatable.dart';
 import 'genres.dart';
 
 class Details extends Equatable{
-  final String image;
-  final String posterImage;
+  final String? image;
+  final String? posterImage;
   final int id;
-  final List<Genres> genres;
-  final String title;
-  final String date;
+  final List<Genres>? genres;
+  final String? title;
+  final String? date;
   final dynamic rate;
-  final int runtime;
-  final String description;
+  final int? runtime;
+  final String? description;
 
  const Details(
   {

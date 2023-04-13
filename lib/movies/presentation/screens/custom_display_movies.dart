@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/movies/presentation/provider/playnow_provider.dart';
 import 'package:movies/movies/presentation/widget/custom_one_movie.dart';
-import 'package:movies/tv/presentation/provider/tv_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:intl/intl.dart';
@@ -24,7 +23,7 @@ class CustomDisplayMovies extends StatelessWidget {
            onWillPop: (){
              controllerProvider.isSearching=false;
              controllerProvider.textEditingController.text='';
-             controllerProvider.listSearchingData=[];
+             controllerProvider.listOnSearching=[];
              return Future.value(true);
            },
           child:
@@ -41,7 +40,7 @@ class CustomDisplayMovies extends StatelessWidget {
                   controller: controllerProvider.textEditingController,
                   onChanged: (value){
                     print(value);
-                    controllerProvider.searching(value);
+                     controllerProvider.onSearching(value,1);
                   },
                   style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
@@ -61,7 +60,7 @@ class CustomDisplayMovies extends StatelessWidget {
             ),
             backgroundColor: const Color(0xff1E1E29),
             body:controllerProvider.isSearching==true?
-            SmartRefresher(
+                SmartRefresher(
               enablePullUp: true,
               enablePullDown:true,
               onRefresh: controllerProvider.onRefresh,
@@ -71,12 +70,12 @@ class CustomDisplayMovies extends StatelessWidget {
               controller: controllerProvider.refreshController,
               child:
               ListView.builder(
-                  itemCount:controllerProvider.listSearchingData.length ,
+                  itemCount:controllerProvider.listOnSearching.length ,
                   itemBuilder: (context,i){
                     var year='';
                     try{
                       DateTime dateTime =
-                      DateTime.parse(controllerProvider.listSearchingData[i].date);
+                      DateTime.parse(controllerProvider.listOnSearching[i].date!);
                       year= DateFormat.y().format((dateTime));
                     }catch(e){
                       year='';
@@ -87,7 +86,7 @@ class CustomDisplayMovies extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 15.0,left: 5,right: 5),
                         child: InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id:controllerProvider.listSearchingData[i].id)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id:controllerProvider.listOnSearching[i].id)));
                           },
                           child:
                           Container(
@@ -105,9 +104,9 @@ class CustomDisplayMovies extends StatelessWidget {
                                   height: ( MediaQuery.of(context).size.height-15)/5 -5,
                                   child: CustomOneMovie(
                                       image:
-                                      '${AppConstants.imageUrl}${controllerProvider.listSearchingData[i].posterImage}',
+                                      '${AppConstants.imageUrl}${controllerProvider.listOnSearching[i].posterImage}',
                                       onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id:controllerProvider.listSearchingData[i].id)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsMovies(id:controllerProvider.listOnSearching[i].id)));
                                       }),
                                 ),
                                 Expanded(
@@ -124,7 +123,7 @@ class CustomDisplayMovies extends StatelessWidget {
                                               Container(
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(
-                                                  controllerProvider.listSearchingData[i].title,style:
+                                                  controllerProvider.listOnSearching[i].title!,style:
                                                 const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 20,
@@ -158,7 +157,7 @@ class CustomDisplayMovies extends StatelessWidget {
                                                   const Icon(Icons.star,size: 25,color: Colors.yellow,),
                                                   SizedBox(width: constraints.maxWidth*0.02,),
                                                   Text(
-                                                    '${controllerProvider.listSearchingData[i].rate}',
+                                                    '${controllerProvider.listOnSearching[i].rate}',
                                                     style:const TextStyle(color: Colors.white,fontSize: 16) ,
                                                   )
 
@@ -168,8 +167,7 @@ class CustomDisplayMovies extends StatelessWidget {
                                                 height: constraints.maxHeight*0.07,
                                               ),
                                               Text(
-
-                                                controllerProvider.listSearchingData[i].description,
+                                                controllerProvider.listOnSearching[i].description!,
                                                 style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 16,
@@ -206,7 +204,7 @@ class CustomDisplayMovies extends StatelessWidget {
                     try{
                       DateTime dateTime =
                       isPopular==true?
-                      DateTime.parse(controllerProvider.listPopular[i].date):DateTime.parse(controllerProvider.listTopRated[i].date);
+                      DateTime.parse(controllerProvider.listPopular[i].date!):DateTime.parse(controllerProvider.listTopRated[i].date!);
                       year= DateFormat.y().format((dateTime));
                     }catch(e){
                       year='';
@@ -255,8 +253,8 @@ class CustomDisplayMovies extends StatelessWidget {
                                               Container(
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(isPopular==true?
-                                                controllerProvider.listPopular[i].title:
-                                                controllerProvider.listTopRated[i].title,style:
+                                                controllerProvider.listPopular[i].title!:
+                                                controllerProvider.listTopRated[i].title!,style:
                                                 const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 20,
@@ -301,8 +299,8 @@ class CustomDisplayMovies extends StatelessWidget {
                                                 height: constraints.maxHeight*0.07,
                                               ),
                                               Text(
-                                                isPopular==true?controllerProvider.listPopular[i].description:
-                                                controllerProvider.listTopRated[i].description,
+                                                isPopular==true?controllerProvider.listPopular[i].description!:
+                                                controllerProvider.listTopRated[i].description!,
                                                 style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 16,

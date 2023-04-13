@@ -6,4 +6,6 @@ abstract class BaseTvRepositories{
   Future<List<TvModel>> getTvPopular(int page);
   Future<List<TvModel>> getTvTopRated(int page);
   Future<DetailsModelTv> getTvDetails(int id);
+  Future<List<TvModel>> getTvSearch(String query, int page);
+
 }

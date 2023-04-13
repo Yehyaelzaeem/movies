@@ -33,6 +33,9 @@ class CustomStackTv extends StatelessWidget {
               child: Image.network(
                 image,
                 fit: BoxFit.cover,
+                errorBuilder: (context,object,stack){
+                  return const Center(child: CircularProgressIndicator(),);
+                },
               ),
             ),
           ),

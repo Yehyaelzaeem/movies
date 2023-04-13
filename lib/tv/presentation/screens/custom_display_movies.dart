@@ -20,9 +20,9 @@ class CustomDisplayTv extends StatelessWidget {
     return Consumer<TvProvider>(builder: (context,controllerProvider,child){
       return  WillPopScope(
           onWillPop: (){
-            controllerProvider.isSearching=false;
+            controllerProvider.isSearchingTv=false;
             controllerProvider.textEditingController.text='';
-            controllerProvider.listSearchingData=[];
+            controllerProvider.listTvOnSearching=[];
             return Future.value(true);
           },
           child:
@@ -34,12 +34,12 @@ class CustomDisplayTv extends StatelessWidget {
               backgroundColor: const Color(0xff0C0C10),
               toolbarHeight: 50,
               title:
-              controllerProvider.isSearching == false ?
+              controllerProvider.isSearchingTv == false ?
               Center(child: Text(title,style: const TextStyle(color: Colors.white,fontSize: 18),),) :
               Center(child: TextField(
                   controller: controllerProvider.textEditingController,
                   onChanged: (value){
-                    controllerProvider.searching(value);
+                    controllerProvider.onSearchingTv(value,1);
                   },
                   style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
@@ -53,12 +53,12 @@ class CustomDisplayTv extends StatelessWidget {
                 IconButton(onPressed: (){
                   controllerProvider.chickSearching();
                   controllerProvider.textEditingController.text='';
-                }, icon: controllerProvider.isSearching==false?const Icon(Icons.search):const Icon(Icons.clear))
+                }, icon: controllerProvider.isSearchingTv==false?const Icon(Icons.search):const Icon(Icons.clear))
 
               ],
             ),
 
-            body:controllerProvider.isSearching==true?
+            body:controllerProvider.isSearchingTv==true?
             SmartRefresher(
               enablePullUp: true,
               enablePullDown:true,
@@ -69,12 +69,12 @@ class CustomDisplayTv extends StatelessWidget {
               controller: controllerProvider.refreshController,
               child:
               ListView.builder(
-                  itemCount:controllerProvider.listSearchingData.length ,
+                  itemCount:controllerProvider.listTvOnSearching.length ,
                   itemBuilder: (context,i){
                     var year='';
                     try{
                       DateTime dateTime =
-                      DateTime.parse(controllerProvider.listSearchingData[i].date);
+                      DateTime.parse(controllerProvider.listTvOnSearching[i].date!);
                       year= DateFormat.y().format((dateTime));
                     }catch(e){
                       year='';
@@ -85,7 +85,7 @@ class CustomDisplayTv extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 15.0,left: 5,right: 5),
                         child: InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:controllerProvider.listSearchingData[i].id)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:controllerProvider.listTvOnSearching[i].id)));
                           },
                           child:
                           Container(
@@ -103,9 +103,9 @@ class CustomDisplayTv extends StatelessWidget {
                                   height: ( MediaQuery.of(context).size.height-15)/5 -5,
                                   child: CustomOneMovie(
                                       image:
-                                      '${AppConstants.imageUrl}${controllerProvider.listSearchingData[i].posterImage}',
+                                      '${AppConstants.imageUrl}${controllerProvider.listTvOnSearching[i].posterImage}',
                                       onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:controllerProvider.listSearchingData[i].id)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsTv(id:controllerProvider.listTvOnSearching[i].id)));
                                       }),
                                 ),
                                 Expanded(
@@ -122,7 +122,7 @@ class CustomDisplayTv extends StatelessWidget {
                                               Container(
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(
-                                                  controllerProvider.listSearchingData[i].title,style:
+                                                  controllerProvider.listTvOnSearching[i].title!,style:
                                                 const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 20,
@@ -156,7 +156,7 @@ class CustomDisplayTv extends StatelessWidget {
                                                   const Icon(Icons.star,size: 25,color: Colors.yellow,),
                                                   SizedBox(width: constraints.maxWidth*0.02,),
                                                   Text(
-                                                    '${controllerProvider.listSearchingData[i].rate}',
+                                                    '${controllerProvider.listTvOnSearching[i].rate}',
                                                     style:const TextStyle(color: Colors.white,fontSize: 16) ,
                                                   )
 
@@ -167,7 +167,7 @@ class CustomDisplayTv extends StatelessWidget {
                                               ),
                                               Text(
 
-                                                controllerProvider.listSearchingData[i].description,
+                                                controllerProvider.listTvOnSearching[i].description!,
                                                 style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 16,
@@ -204,7 +204,7 @@ class CustomDisplayTv extends StatelessWidget {
                     try{
                       DateTime dateTime =
                       isPopular==true?
-                      DateTime.parse(controllerProvider.listTvPopular[i].date):DateTime.parse(controllerProvider.listTvTopRated[i].date);
+                      DateTime.parse(controllerProvider.listTvPopular[i].date!):DateTime.parse(controllerProvider.listTvTopRated[i].date!);
                       year= DateFormat.y().format((dateTime));
                     }catch(e){
                       year='';
@@ -253,8 +253,8 @@ class CustomDisplayTv extends StatelessWidget {
                                               Container(
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(isPopular==true?
-                                                controllerProvider.listTvPopular[i].title:
-                                                controllerProvider.listTvTopRated[i].title,style:
+                                                controllerProvider.listTvPopular[i].title!:
+                                                controllerProvider.listTvTopRated[i].title!,style:
                                                 const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 18,
@@ -299,8 +299,8 @@ class CustomDisplayTv extends StatelessWidget {
                                                 height: constraints.maxHeight*0.07,
                                               ),
                                               Text(
-                                                isPopular==true?controllerProvider.listTvPopular[i].description:
-                                                controllerProvider.listTvTopRated[i].description,
+                                                isPopular==true?controllerProvider.listTvPopular[i].description!:
+                                                controllerProvider.listTvTopRated[i].description!,
                                                 style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 16,

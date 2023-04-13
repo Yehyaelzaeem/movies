@@ -10,6 +10,7 @@ abstract class BaseRemoteDateSource {
   Future<List<MoviesModel>> getMoviesPlayNow(int page);
   Future<List<MoviesModel>> getMoviesPopular(int page);
   Future<List<MoviesModel>> getMoviesTopRated(int page);
+  Future<List<MoviesModel>> getSearch(String query, int page);
   Future<DetailsModel> getDetails(int id);
   Future<List<LikeThisMoviesModel>> getLikeThisMovies(int id);
 }
@@ -68,6 +69,17 @@ class RemoteDateSource implements BaseRemoteDateSource{
     var response = await Dio().get('${AppConstants.baseUrl}/movie/$id/recommendations?api_key=${AppConstants.apiKey}');
     if(response.statusCode==200){
       return List<LikeThisMoviesModel>.from((response.data['results']as List ).map((e) => LikeThisMoviesModel.fromJson(e)));
+    }
+    else {
+      throw ServerException(errorMessage: ErrorMessageModel.fromJson(response.data));
+    }
+  }
+
+  @override
+  Future<List<MoviesModel>> getSearch(String query, int page) async{
+    var response = await Dio().get('${AppConstants.baseUrl}/search/movie?api_key=${AppConstants.apiKey}&query=$query&page=$page');
+    if(response.statusCode==200){
+      return List<MoviesModel>.from((response.data['results'] as List).map((e) => MoviesModel.fromJson(e)));
     }
     else {
       throw ServerException(errorMessage: ErrorMessageModel.fromJson(response.data));

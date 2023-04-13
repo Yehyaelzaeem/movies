@@ -26,16 +26,18 @@ class OnTheAir extends StatelessWidget {
           else{
             return  CustomHomeTv(
               title: 'ON THE AIR',
-              movieTitle: controller.listOnTheAir[0].title,
-              image: controller.listOnTheAir[0].image,
+              movieTitle: controller.listOnTheAir[0].title!,
+              image: controller.listOnTheAir[0].image!,
               listPopular: controller.listTvPopularDate,
               listTopRated: controller.listTvTopRatedDate,
               onTapPopular: () {
+                controller.isPopularTv=true;
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>
                     const CustomDisplayTv( title: 'Popular Tv', isPopular: true,)
                 ));
                 },
               onTapTopRated: () {
+                controller.isPopularTv=false;
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>
                    const CustomDisplayTv(title: 'Top Rated Tv', isPopular: false,)
                 ));

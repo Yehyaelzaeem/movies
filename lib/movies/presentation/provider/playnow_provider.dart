@@ -11,7 +11,9 @@ class PlayNowProvider extends ChangeNotifier{
    List<Movies> listTopRated=[] ;
    List<Movies> listPopularData=[] ;
    List<Movies> listTopRatedData=[] ;
-   List<Movies> listSearchingData=[] ;
+   // List<Movies> listSearchingData=[] ;
+   List<Movies> listOnSearching=[] ;
+
    bool isSearching =false;
    ScrollController scrollController = ScrollController();
    final RefreshController refreshController = RefreshController();
@@ -23,32 +25,38 @@ class PlayNowProvider extends ChangeNotifier{
    PlayNowProvider({required this.getPlayNowUseCase});
 
 
+
+
 //searching *****************************************************
    void chickSearching(){
      isSearching=!isSearching;
      isPopularMovies==true?
-     listSearchingData=listPopular:
-     listSearchingData=listTopRated;
+     listOnSearching=listPopular:
+     listOnSearching=listTopRated;
      notifyListeners();
    }
-
-   Future searching(String movieName)async{
-      if(movieName.isNotEmpty){
-        if(isPopularMovies==true){
-          listSearchingData=(listPopular.where((element) => element.title.toLowerCase().contains(movieName.toLowerCase()))).toList();
-        }
-        else{
-          listSearchingData=(listTopRated.where((element) => element.title.toLowerCase().contains(movieName.toLowerCase()))).toList();
-        }
-      }
-      else{
-        isPopularMovies==true?
-        listSearchingData=listPopular:
-        listSearchingData=listTopRated;
-
-      }
-       notifyListeners();
-   }
+  Future onSearching(String query, int page)async{
+    final data =await getPlayNowUseCase.getSearch(query,page);
+    listOnSearching=data;
+    notifyListeners();
+  }
+   // Future searchhing(String movieName)async{
+   //    if(movieName.isNotEmpty){
+   //      if(isPopularMovies==true){
+   //        listSearchingData=(listPopular.where((element) => element.title.toLowerCase().contains(movieName.toLowerCase()))).toList();
+   //      }
+   //      else{
+   //        listSearchingData=(listTopRated.where((element) => element.title.toLowerCase().contains(movieName.toLowerCase()))).toList();
+   //      }
+   //    }
+   //    else{
+   //      isPopularMovies==true?
+   //      listSearchingData=listPopular:
+   //      listSearchingData=listTopRated;
+   //
+   //    }
+   //     notifyListeners();
+   // }
 
 
 //start page run (Play Now && initA )*****************************************
